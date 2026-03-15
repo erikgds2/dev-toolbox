@@ -19,6 +19,7 @@ console = Console()
 app = typer.Typer(help="Conversor de formatos JSON, CSV, YAML e XML")
 
 FORMATOS_SUPORTADOS = {"json", "csv", "yaml", "yml", "xml"}
+ALIASES_FORMATO = {"yml": "yaml"}  # normaliza extensoes alternativas
 
 
 def detectar_formato(caminho: Path) -> str:
