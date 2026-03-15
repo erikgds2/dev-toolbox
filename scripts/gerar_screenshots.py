@@ -243,8 +243,10 @@ def screenshot_makefile() -> None:
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    import io, sys
-    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    # força UTF-8 no stdout do Windows (evita UnicodeEncodeError com emojis)
+    import io as _io2, sys as _sys
+    if hasattr(_sys.stdout, "buffer"):
+        _sys.stdout = _io2.TextIOWrapper(_sys.stdout.buffer, encoding="utf-8", errors="replace")
     print("\n  Gerando screenshots do dev-toolbox...\n")
     screenshot_menu()
     screenshot_senha()
