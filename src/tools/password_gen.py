@@ -219,8 +219,8 @@ def gerar_senha(
 
 def exibir_resultado(resultado: ResultadoSenha, numero: int = 1) -> None:
     """Exibe uma senha gerada no terminal com formatação rica."""
-    # Barra de força
-    largura_barra = 30
+    # Barra de força — 40 chars fica mais legível no terminal
+    largura_barra = 40
     preenchido = int((resultado.score / 100) * largura_barra)
     barra = "█" * preenchido + "░" * (largura_barra - preenchido)
 
