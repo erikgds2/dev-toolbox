@@ -174,8 +174,8 @@ def exibir_preview(operacoes: list[OperacaoRenomear]) -> None:
         show_lines=True,
     )
     tabela.add_column("#", style="dim", width=4)
-    tabela.add_column("Nome Original", style="yellow")
-    tabela.add_column("Novo Nome", style="green")
+    tabela.add_column("Nome Original", style="yellow", max_width=45, no_wrap=True)
+    tabela.add_column("Novo Nome", style="green", max_width=45, no_wrap=True)
     tabela.add_column("Status")
 
     alteracoes = 0
