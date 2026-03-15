@@ -290,9 +290,13 @@ def _gerar_relatorio(
     total_duplicatas = sum(g.quantidade_duplicatas for g in grupos)
     espaco_desperdicado = sum(g.espaco_desperdicado for g in grupos)
 
+    total_arquivos_no_grupo = sum(len(g.arquivos) for g in grupos)
+    pct = f"{(total_duplicatas / total_arquivos_no_grupo * 100):.1f}%" if total_arquivos_no_grupo else "0%"
+
     estatisticas = {
         "Grupos de Duplicatas": str(total_grupos),
         "Arquivos Duplicados": str(total_duplicatas),
+        "% de Duplicatas": pct,
         "Espaço Desperdiçado": _formatar_bytes(espaco_desperdicado),
         "Arquivos Removidos": str(removidos),
         "Espaço Liberado": _formatar_bytes(liberados) if liberados else "N/A",
