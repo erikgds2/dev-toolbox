@@ -5,6 +5,8 @@
 [![Python](https://img.shields.io/badge/Python-3.13+-blue?logo=python)](https://python.org)
 [![Rich](https://img.shields.io/badge/Rich-13.0+-purple)](https://github.com/Textualize/rich)
 [![Typer](https://img.shields.io/badge/Typer-0.9+-green)](https://typer.tiangolo.com)
+[![License](https://img.shields.io/badge/Licença-MIT-yellow)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-bem--vindas-brightgreen)](CONTRIBUTING.md)
 
 ---
 
