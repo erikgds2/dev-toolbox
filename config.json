@@ -6,5 +6,7 @@
   "auto_open_report": false,
   "max_threads": 10,
   "request_timeout": 10,
-  "hash_algorithm": "md5"
+  "hash_algorithm": "md5",
+  "monitor_refresh_rate": 1.0,
+  "monitor_historico": 60
 }
