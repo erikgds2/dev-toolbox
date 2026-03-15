@@ -1,0 +1,10 @@
+{
+  "output_dir": "output",
+  "language": "pt-BR",
+  "theme": "dark",
+  "version": "1.0.0",
+  "auto_open_report": false,
+  "max_threads": 10,
+  "request_timeout": 10,
+  "hash_algorithm": "md5"
+}
