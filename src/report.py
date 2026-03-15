@@ -223,6 +223,8 @@ def gerar_html(
         String com o HTML completo
     """
     agora = datetime.now().strftime("%d/%m/%Y às %H:%M:%S")
+    from src.config import carregar_config
+    config_versao = carregar_config().get("version", "1.0.0")
 
     html_estatisticas = ""
     if estatisticas:
@@ -275,7 +277,7 @@ def gerar_html(
         {html_secoes}
 
         <footer>
-            <p>Gerado automaticamente pelo <strong>dev-toolbox v1.0.0</strong></p>
+            <p>Gerado automaticamente pelo <strong>dev-toolbox v{config_versao}</strong> &mdash; {agora}</p>
         </footer>
     </div>
 </body>
