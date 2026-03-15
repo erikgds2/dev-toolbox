@@ -210,7 +210,7 @@ def cmd_monitor(
     relatorio: bool = typer.Option(False, "--relatorio", "-r", help="Gerar relatório HTML"),
 ) -> None:
     """Monitor de sistema em tempo real."""
-    system_monitor.monitorar(duracao=duracao, relatorio=relatorio)
+    system_monitor.monitorar(duracao=duracao, intervalo=1.0, relatorio=relatorio)
 
 
 @app.command(name="senha")
@@ -238,7 +238,7 @@ def cmd_converter(
     relatorio: bool = typer.Option(False, "--relatorio", "-r"),
 ) -> None:
     """Converte arquivos entre JSON, CSV, YAML e XML."""
-    format_converter.converter(entrada=entrada, para=para, relatorio=relatorio)
+    format_converter.converter(entrada=entrada, para=para, saida=None, preview=True, relatorio=relatorio)
 
 
 @app.command(name="urls")
@@ -248,7 +248,7 @@ def cmd_urls(
     relatorio: bool = typer.Option(False, "--relatorio", "-r"),
 ) -> None:
     """Verifica URLs quanto a status e tempo de resposta."""
-    url_checker.checar(urls_arg=urls_arg, arquivo=arquivo, relatorio=relatorio)
+    url_checker.checar(urls_arg=urls_arg, arquivo=arquivo, timeout=10, threads=10, relatorio=relatorio)
 
 
 @app.command(name="renomear")
@@ -265,7 +265,16 @@ def cmd_renomear(
         diretorio=diretorio,
         prefixo=prefixo,
         sufixo=sufixo,
+        substituir=None,
+        regex=None,
         numeracao=numeracao,
+        inicio=1,
+        digitos=3,
+        extensao="",
+        filtro="",
+        maiusculas=False,
+        minusculas=False,
+        recursivo=False,
         dry_run=dry_run,
         relatorio=relatorio,
     )
@@ -282,6 +291,8 @@ def cmd_duplicatas(
     duplicate_finder.buscar(
         diretorio=diretorio,
         recursivo=recursivo,
+        tamanho_minimo=0,
+        ignorar="",
         deletar=deletar,
         relatorio=relatorio,
     )
