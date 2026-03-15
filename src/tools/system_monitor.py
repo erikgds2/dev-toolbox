@@ -21,12 +21,12 @@ app = typer.Typer(help="Monitor de sistema em tempo real")
 
 
 def _cor_percentual(valor: float) -> str:
-    """Retorna a cor baseada no percentual de uso."""
+    """Retorna a cor baseada no percentual de uso (verde < 60%, amarelo < 85%, vermelho acima)."""
     if valor < 60:
         return "green"
     elif valor < 85:
         return "yellow"
-    return "red"
+    return "bold red"
 
 
 def _barra_percentual(valor: float, largura: int = 20) -> Text:
