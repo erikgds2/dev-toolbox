@@ -13,9 +13,11 @@
 ## 📋 Sumário
 
 - [Visão Geral](#visão-geral)
+- [Screenshots](#screenshots)
 - [Ferramentas](#ferramentas)
 - [Instalação](#instalação)
-- [Uso](#uso)
+- [Uso com Makefile](#uso-com-makefile)
+- [Uso via CLI direta](#uso-via-cli-direta)
 - [Configuração](#configuração)
 - [Relatórios HTML](#relatórios-html)
 - [Estrutura do Projeto](#estrutura-do-projeto)
@@ -28,30 +30,46 @@ O **dev-toolbox** é uma coleção de utilitários de linha de comando desenvolv
 
 ---
 
+## Screenshots
+
+### Menu Principal
+
+![Menu Principal](docs/screenshots/menu_principal.svg)
+
+### Gerador de Senhas
+
+![Gerador de Senhas](docs/screenshots/gerador_senhas.svg)
+
+### Verificador de URLs
+
+![Verificador de URLs](docs/screenshots/url_checker.svg)
+
+### Monitor de Sistema
+
+![Monitor de Sistema](docs/screenshots/monitor_sistema.svg)
+
+### Makefile — make help
+
+![make help](docs/screenshots/make_help.svg)
+
+---
+
 ## Ferramentas
 
 ### 🖥️ 1. Monitor de Sistema
 Monitora CPU, RAM e disco em tempo real com barras de progresso coloridas e atualização automática.
-
-```bash
-python -m src.main monitor --duracao 30 --relatorio
-```
 
 **Recursos:**
 - Uso de CPU por núcleo
 - RAM e Swap em uso
 - Espaço em disco
 - Top processos por CPU
-- Cores: verde (< 60%), amarelo (< 85%), vermelho (≥ 85%)
+- Cores: verde (< 60%), amarelo (< 85%), **vermelho** (≥ 85%)
 
 ---
 
 ### 🔐 2. Gerador de Senhas
 Gera senhas criptograficamente seguras com score de força de 0 a 100.
-
-```bash
-python -m src.main senha --comprimento 20 --quantidade 5 --relatorio
-```
 
 **Recursos:**
 - Comprimento configurável
@@ -65,16 +83,10 @@ python -m src.main senha --comprimento 20 --quantidade 5 --relatorio
 ### 🔄 3. Conversor de Formatos
 Converte arquivos entre JSON, CSV, YAML e XML com auto-detecção do formato.
 
-```bash
-python -m src.main converter dados.json --para yaml
-python -m src.main converter dados.csv --para xml --saida saida.xml
-```
-
 **Formatos suportados:** `json`, `csv`, `yaml` (yml), `xml`
 
 **Recursos:**
 - Auto-detecção do formato pela extensão
-- Conversão de arquivos individuais ou diretórios inteiros
 - Prévia do resultado no terminal
 - Preservação de caracteres Unicode
 
@@ -82,11 +94,6 @@ python -m src.main converter dados.csv --para xml --saida saida.xml
 
 ### 🌐 4. Verificador de URLs
 Verifica a disponibilidade de URLs com código HTTP e tempo de resposta.
-
-```bash
-python -m src.main urls --urls "https://google.com,https://github.com" --relatorio
-python -m src.main urls --arquivo minha_lista.txt --relatorio
-```
 
 **Recursos:**
 - Verificação paralela com múltiplas threads
@@ -100,42 +107,24 @@ python -m src.main urls --arquivo minha_lista.txt --relatorio
 ### 📝 5. Renomeador em Lote
 Renomeia arquivos com suporte a prefixo, sufixo, substituição de texto, regex e numeração sequencial.
 
-```bash
-# Adicionar prefixo
-python -m src.main renomear ./fotos --prefixo "2024_"
-
-# Numeração sequencial (simulação)
-python -m src.main renomear ./docs --numeracao --dry-run
-
-# Aplicar com substituição
-python -m src.main renomear ./arquivos --substituir "antigo:novo" --aplicar
-```
-
 **Recursos:**
 - Prefixo e sufixo
 - Substituição simples de texto
 - Padrões regex
 - Numeração sequencial com quantidade de dígitos configurável
 - Mudança de extensão
-- Filtro por extensão
-- Modo dry-run (simulação) por padrão
+- Modo dry-run (simulação) por padrão — aplica só quando confirmado
 
 ---
 
 ### 🔍 6. Buscador de Duplicatas
 Encontra arquivos duplicados por hash MD5 com opção de remoção automática.
 
-```bash
-python -m src.main duplicatas ./minha_pasta --recursivo --relatorio
-python -m src.main duplicatas ./downloads --deletar --relatorio
-```
-
 **Recursos:**
 - Otimização em dois estágios (tamanho → MD5)
 - Busca recursiva opcional
-- Filtro por tamanho mínimo
-- Extensões a ignorar
 - Cálculo de espaço desperdiçado
+- Percentual de duplicatas no resumo
 - Remoção com confirmação (mantém o primeiro arquivo)
 
 ---
@@ -145,57 +134,104 @@ python -m src.main duplicatas ./downloads --deletar --relatorio
 ### Pré-requisitos
 - Python 3.13+
 - pip
+- `make` — Git Bash (Windows), Terminal (Linux/macOS)
 
 ### Passos
 
 ```bash
-# Clone ou acesse o diretório
+# Clone o repositório
+git clone https://github.com/erikgds2/dev-toolbox
 cd dev-toolbox
 
 # Crie e ative o ambiente virtual
 python -m venv venv
 source venv/bin/activate       # Linux/macOS
-venv\Scripts\activate          # Windows
+venv\Scripts\activate          # Windows (Git Bash)
 
 # Instale as dependências
-pip install -r requirements.txt
+make install
+# ou: pip install -r requirements.txt
 ```
 
 ---
 
-## Uso
+## Uso com Makefile
 
-### Menu Interativo (recomendado)
+A forma mais simples de usar o dev-toolbox. Cada comando faz perguntas interativas — sem precisar decorar parâmetros.
 
 ```bash
-python -m src.main
+make help          # lista todos os comandos disponíveis
+make menu          # abre o menu interativo completo
+make monitor       # monitor de sistema (pergunta duração e relatório)
+make senha         # gerador de senhas (pergunta comprimento, quantidade...)
+make urls          # checker de URLs (pergunta arquivo ou URLs manuais)
+make converter     # conversor de formatos (pergunta arquivo e formato)
+make renomear      # renomeador em lote (mostra preview antes de aplicar)
+make duplicatas    # buscador de duplicatas (pergunta pasta e opções)
+make clean         # remove relatórios gerados
+make demo          # gera screenshots do CLI em docs/screenshots/
 ```
 
-Abre o menu interativo com todas as ferramentas listadas.
+**Exemplo de sessão interativa com `make senha`:**
 
-### Comandos Diretos
+```
+  🔐 Gerador de Senhas Seguras
+  ─────────────────────────────────────────
+  📏 Comprimento da senha (Enter = 16): 24
+  🔢 Quantas senhas gerar? (Enter = 1): 3
+  🚫 Remover símbolos especiais? (s/N): n
+  👁  Excluir caracteres ambíguos (0,O,l,1)? (s/N): s
+  📊 Gerar relatório HTML? (s/N): s
+```
+
+**Exemplo com `make renomear`:**
+
+```
+  📝 Renomeador em Lote
+  ─────────────────────────────────────────
+  📁 Pasta com os arquivos: ./fotos
+  ➕ Prefixo para adicionar (Enter = nenhum): 2024_
+  ➕ Sufixo para adicionar (Enter = nenhum):
+  🔢 Adicionar numeração automática? (s/N): s
+
+  Mostrando preview das alterações...
+
+  ✅ Aplicar as renomeações? (s/N): s
+```
+
+---
+
+## Uso via CLI direta
+
+Para quem prefere passar os parâmetros direto:
 
 ```bash
+# Menu interativo
+python -m src.main
+
 # Monitor de sistema
-python -m src.main monitor [--duracao SEGUNDOS] [--relatorio]
+python -m src.main monitor --duracao 30 --relatorio
 
 # Gerador de senhas
-python -m src.main senha [--comprimento N] [--quantidade N] [--sem-simbolos] [--relatorio]
+python -m src.main senha --comprimento 20 --quantidade 5 --relatorio
 
 # Conversor de formatos
-python -m src.main converter ARQUIVO --para FORMATO [--saida ARQUIVO_SAIDA] [--relatorio]
+python -m src.main converter dados.json --para yaml
 
 # Verificador de URLs
-python -m src.main urls --urls "url1,url2" [--arquivo ARQUIVO] [--relatorio]
+python -m src.main urls --arquivo examples/urls.txt --relatorio
 
-# Renomeador em lote
-python -m src.main renomear DIRETORIO [opções] [--aplicar] [--relatorio]
+# Renomeador em lote (preview)
+python -m src.main renomear ./fotos --prefixo "2024_" --dry-run
 
 # Buscador de duplicatas
-python -m src.main duplicatas DIRETORIO [--deletar] [--relatorio]
+python -m src.main duplicatas ./downloads --recursivo --relatorio
+
+# Versão
+python -m src.main versao
 ```
 
-### Ajuda
+**Ajuda por ferramenta:**
 
 ```bash
 python -m src.main --help
@@ -207,7 +243,7 @@ python -m src.main senha --help
 
 ## Configuração
 
-O arquivo `config.json` na raiz do projeto controla as configurações globais:
+O arquivo `config.json` na raiz controla as configurações globais:
 
 ```json
 {
@@ -218,7 +254,9 @@ O arquivo `config.json` na raiz do projeto controla as configurações globais:
   "auto_open_report": false,
   "max_threads": 10,
   "request_timeout": 10,
-  "hash_algorithm": "md5"
+  "hash_algorithm": "md5",
+  "monitor_refresh_rate": 1.0,
+  "monitor_historico": 60
 }
 ```
 
@@ -227,7 +265,9 @@ O arquivo `config.json` na raiz do projeto controla as configurações globais:
 | `output_dir` | Diretório para relatórios HTML | `output` |
 | `max_threads` | Threads para verificação de URLs | `10` |
 | `request_timeout` | Timeout HTTP em segundos | `10` |
-| `hash_algorithm` | Algoritmo de hash | `md5` |
+| `hash_algorithm` | Algoritmo de hash para duplicatas | `md5` |
+| `monitor_refresh_rate` | Intervalo de atualização do monitor (s) | `1.0` |
+| `monitor_historico` | Segundos de histórico no monitor | `60` |
 
 ---
 
@@ -236,14 +276,13 @@ O arquivo `config.json` na raiz do projeto controla as configurações globais:
 Todas as ferramentas suportam a flag `--relatorio` para gerar um relatório HTML com:
 
 - **Tema escuro** (fundo `#1a1a2e`, acento `#00d4ff`)
-- Timestamp de geração
+- Timestamp de geração e versão da ferramenta
 - Resumo estatístico com cartões
-- Tabelas de resultados
-- Badges coloridos por status
+- Tabelas de resultados com badges coloridos
 
-Os relatórios são salvos em `output/` com nome no formato:
+Os relatórios são salvos em `output/` com timestamp:
 ```
-output/nome_ferramenta_20240115_143022.html
+output/gerador_senhas_20240115_143022.html
 ```
 
 ---
@@ -253,22 +292,28 @@ output/nome_ferramenta_20240115_143022.html
 ```
 dev-toolbox/
 ├── src/
-│   ├── __init__.py
-│   ├── main.py              # Ponto de entrada com menu interativo
+│   ├── main.py              # Menu interativo e comandos CLI
 │   ├── report.py            # Gerador de relatórios HTML (tema escuro)
-│   ├── config.py            # Carregador de configuração global
+│   ├── config.py            # Configuração global
 │   └── tools/
-│       ├── __init__.py
-│       ├── system_monitor.py    # Monitor de CPU, RAM e disco
-│       ├── password_gen.py      # Gerador de senhas seguras
-│       ├── format_converter.py  # Conversor JSON/CSV/YAML/XML
-│       ├── url_checker.py       # Verificador de URLs
-│       ├── batch_renamer.py     # Renomeador em lote
-│       └── duplicate_finder.py  # Buscador de duplicatas (MD5)
+│       ├── system_monitor.py
+│       ├── password_gen.py
+│       ├── format_converter.py
+│       ├── url_checker.py
+│       ├── batch_renamer.py
+│       └── duplicate_finder.py
+├── docs/
+│   └── screenshots/         # Screenshots SVG do CLI
+├── examples/
+│   ├── urls.txt             # Lista de URLs de exemplo
+│   └── dados.json           # JSON de exemplo para conversão
+├── scripts/
+│   └── gerar_screenshots.py # Gerador de screenshots
+├── Makefile                 # Comandos interativos simplificados
+├── pyproject.toml
 ├── config.json
 ├── requirements.txt
-├── README.md
-├── CHANGELOG.md
+├── CONTRIBUTING.md
 └── .gitignore
 ```
 
@@ -278,7 +323,7 @@ dev-toolbox/
 
 | Pacote | Versão | Uso |
 |--------|--------|-----|
-| `rich` | ≥13.0.0 | Interface do terminal |
+| `rich` | ≥13.0.0 | Interface do terminal e geração de SVG |
 | `typer` | ≥0.9.0 | CLI e argumentos |
 | `psutil` | ≥5.9.0 | Monitor de sistema |
 | `pyyaml` | ≥6.0 | Conversão YAML |
