@@ -138,6 +138,8 @@ def _exibir_menu() -> None:
             ferramenta["descricao"],
         )
 
+    # Linha separadora antes do item sair
+    tabela.add_section()
     tabela.add_row(
         "[dim]0[/dim]",
         "[dim]🚪 Sair[/dim]",
