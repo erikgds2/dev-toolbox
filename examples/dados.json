@@ -1,0 +1,6 @@
+[
+  {"nome": "Ana Silva", "cargo": "Desenvolvedora", "salario": 8500, "cidade": "São Paulo"},
+  {"nome": "Carlos Mendes", "cargo": "Analista", "salario": 6200, "cidade": "Belo Horizonte"},
+  {"nome": "Fernanda Costa", "cargo": "DevOps", "salario": 9100, "cidade": "Curitiba"},
+  {"nome": "Ricardo Alves", "cargo": "Designer", "salario": 5800, "cidade": "Recife"}
+]

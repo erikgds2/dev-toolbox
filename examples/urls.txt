@@ -1,0 +1,12 @@
+# Lista de URLs de exemplo para testar o verificador
+# Linhas com # são ignoradas
+
+https://www.google.com
+https://www.github.com
+https://www.python.org
+https://pypi.org
+https://docs.python.org
+https://httpbin.org/status/200
+https://httpbin.org/status/404
+https://httpbin.org/delay/2
+https://www.exemplo-site-inexistente-xyz123.com
