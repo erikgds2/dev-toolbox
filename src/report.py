@@ -362,7 +362,7 @@ def salvar_relatorio(
     nome_completo = f"{nome_arquivo}_{timestamp}.html"
     caminho = diretorio / nome_completo
 
-    with open(caminho, "w", encoding="utf-8") as f:
+    with open(caminho, "w", encoding="utf-8", errors="replace") as f:
         f.write(html)
 
     return caminho

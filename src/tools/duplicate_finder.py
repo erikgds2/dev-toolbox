@@ -70,7 +70,7 @@ def calcular_hash_md5(caminho: Path, tamanho_bloco: int = 65536) -> Optional[str
             while bloco := f.read(tamanho_bloco):
                 hasher.update(bloco)
         return hasher.hexdigest()
-    except (PermissionError, OSError):
+    except (PermissionError, OSError, IsADirectoryError):
         return None
 
 

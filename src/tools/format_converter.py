@@ -170,7 +170,7 @@ def converter_arquivo(
         ext_saida = "yml" if formato_saida == "yaml" else formato_saida
         saida = entrada.with_suffix(f".{ext_saida}")
 
-    saida.write_text(conteudo_convertido, encoding="utf-8")
+    saida.write_text(conteudo_convertido, encoding="utf-8", errors="replace")
     return saida, formato_entrada, formato_saida
 
 
