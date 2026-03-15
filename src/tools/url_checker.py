@@ -57,7 +57,15 @@ def _classificar_resposta(tempo_ms: Optional[float], online: bool) -> str:
     return "lenta"
 
 
-def verificar_url(url: str, timeout: int = 10) -> ResultadoURL:
+def verificar_url(url: str, timeout: int | None = None) -> ResultadoURL:
+    """Carrega o timeout do config caso não seja passado explicitamente."""
+    if timeout is None:
+        from src.config import carregar_config
+        timeout = carregar_config().get("request_timeout", 10)
+    return _verificar_url_impl(url, timeout)
+
+
+def _verificar_url_impl(url: str, timeout: int = 10) -> ResultadoURL:
     """
     Verifica uma URL individual.
 
