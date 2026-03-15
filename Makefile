@@ -1,7 +1,8 @@
 # =============================================================================
 # dev-toolbox — Makefile interativo
 # Uso: make <comando>
-# Requer: Git Bash (Windows) ou terminal Linux/Mac
+# Requer: Git Bash (Windows) ou terminal Linux/macOS
+# Windows sem Git Bash: instale via https://gitforwindows.org
 # =============================================================================
 
 PYTHON = python
