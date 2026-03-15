@@ -275,6 +275,14 @@ def cmd_duplicatas(
     )
 
 
+@app.command(name="versao")
+def cmd_versao() -> None:
+    """Exibe a versão instalada do dev-toolbox."""
+    config = carregar_config()
+    versao = config.get("version", "desconhecida")
+    console.print(f"[bold cyan]dev-toolbox[/bold cyan] v[bold]{versao}[/bold]")
+
+
 def main() -> None:
     """Ponto de entrada principal."""
     # Se chamado sem argumentos, abre o menu interativo
